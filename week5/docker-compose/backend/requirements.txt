@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+sqlalchemy[asyncio]
+asyncpg
+redis
+pydantic
+sqlalchemy>=2.0
+psycopg2-binary
+redis>=5.0.0
