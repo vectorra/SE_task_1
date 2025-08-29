@@ -28,7 +28,7 @@ Docker quick start
             #writes final index to /segments; intermediates in /tmp (fast)
                 docker compose run --rm indexer mr-build \
                 --input /data/documents.json \
-                --output /segments/index.json \
+                --output /data/index.json \
                 --id id --text content \
                 --mappers 14 --reducers 14 \
                 --tmpdir /tmp
