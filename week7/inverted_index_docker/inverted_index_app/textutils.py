@@ -5,9 +5,15 @@ import nltk
 nltk.download('punkt', quiet=True)
 nltk.download('punkt_tab')
 from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer
+nltk.download('punkt', quiet=True)
+from nltk.corpus import stopwords
 
-_WORD_RE = re.compile(r"[A-Za-z0-9]+(?:'[A-Za-z0-9]+)?")
+nltk.download('punkt', quiet=True)
+nltk.download('stopwords', quiet=True)
 
+stemmer = PorterStemmer()
+STOPWORDS = set(stopwords.words("english"))
 def normalize(text: str, *, lowercase: bool=True, strip_accents: bool=True) -> str:
     s = (text.replace("—", "-").replace("–", "-")
              .replace("“", '"').replace("”", '"')
@@ -21,4 +27,5 @@ def normalize(text: str, *, lowercase: bool=True, strip_accents: bool=True) -> s
 
 def tokenize(text: str) -> List[str]:
     s = normalize(text)
-    return word_tokenize(s)
+    tokens = word_tokenize(s)
+    return [stemmer.stem(tok) for tok in tokens if tok.isalpha() and tok not in STOPWORDS]

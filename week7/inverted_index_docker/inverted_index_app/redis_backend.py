@@ -92,7 +92,6 @@ def wildcard_search(r: redis.Redis, pattern: str) -> Set[str]:
             break
     return docs
 
-_TOKEN_RE = re.compile(r'"[^"]+"|\(|\)|\bAND\b|\bOR\b|\bNOT\b|[^\s()]+', re.IGNORECASE)
 
 def _eval_leaf(r: redis.Redis, tok: str) -> Set[str]:
     if tok.startswith('"') and tok.endswith('"'):
@@ -107,7 +106,7 @@ def boolean_search(r: redis.Redis, query: str) -> Set[str]:
     right_assoc = {"NOT"}
     output: List[str] = []
     ops: List[str] = []
-    tokens = _TOKEN_RE.findall(query)
+    tokens = tokenize.findall(query)
 
     for t in tokens:
         T = t.upper()

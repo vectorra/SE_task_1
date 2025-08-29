@@ -57,7 +57,6 @@ def wildcard_search(index: Dict, pattern: str) -> Set[str]:
             docs |= doc_ids_from_postings(get_postings(index, term))
     return docs
 
-TOKEN_RE = re.compile(r'"[^"]+"|\(|\)|\bAND\b|\bOR\b|\bNOT\b|[^\s()]+', re.IGNORECASE)
 
 def _eval_token(index: Dict, tok: str) -> Set[str]:
     if tok.startswith('"') and tok.endswith('"'):
