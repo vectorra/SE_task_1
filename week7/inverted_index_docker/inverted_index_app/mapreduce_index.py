@@ -146,5 +146,5 @@ def mr_build(
 
     idx = {"terms": final_terms, "meta": {"documents": len(doc_ids), "tokens": total_tokens}}
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    json.dump(idx, open(output_path, "w", encoding="utf-8"), ensure_ascii=False)
+    json.dump(idx, open(output_path, "w", encoding="utf-8"), ensure_ascii=False, indent=4)
     return idx

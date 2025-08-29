@@ -1,4 +1,3 @@
-# inverted_index_app/cli.py
 import argparse, time
 from .indexer import build_from_json_docs
 from .query import load_index, boolean_search, phrase_search, wildcard_search

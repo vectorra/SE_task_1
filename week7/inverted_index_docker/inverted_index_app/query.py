@@ -1,6 +1,9 @@
 
 import json, re
 from typing import Dict, List, Set, Iterable, Tuple
+import nltk 
+from nltk.tokenize import word_tokenize
+nltk.download('punkt', quiet=True)
 
 def load_index(path: str) -> Dict:
     with open(path, "r", encoding="utf-8") as f:
@@ -70,7 +73,7 @@ def boolean_search(index: Dict, query: str) -> Set[str]:
     right_assoc = {"NOT"}
     output: List[str] = []
     ops: List[str] = []
-    tokens = TOKEN_RE.findall(query)
+    tokens = word_tokenize(query)
     for t in tokens:
         T = t.upper()
         if T in ("AND", "OR", "NOT"):

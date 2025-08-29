@@ -64,7 +64,7 @@ class InvertedIndex:
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
-            json.dump(self.to_dict(), f, ensure_ascii=False, indent=2)
+            json.dump(self.to_dict(), f, ensure_ascii=False, indent=4)
 
 def build_from_json_docs(
     input_json_path: str | Path,

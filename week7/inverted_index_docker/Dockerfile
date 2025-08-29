@@ -13,6 +13,9 @@ COPY inverted_index_app /opt/app/inverted_index_app
 # Install runtime deps
 RUN pip install --no-cache-dir nltk redis
 
+RUN python -m nltk.downloader punkt punkt_tab
+
+
 # Download NLTK data at build time (punkt tokenizer)
 ENV NLTK_DATA=/usr/local/nltk_data
 RUN python - <<'PY'
