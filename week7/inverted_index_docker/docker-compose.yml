@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: inverted-index-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  indexer:
+    build: .
+    image: inverted-index-app:latest
+    container_name: inverted-index
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - PYTHONUNBUFFERED=1
+    working_dir: /data
+    volumes:
+      - ./data:/data       # put your documents here (host)
+      - ./segments:/segments   # optional output dir for artifacts
+    command: ["--help"]        # override at runtime
+
+volumes:
+  redis_data:
